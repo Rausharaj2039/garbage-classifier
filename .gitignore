@@ -1,7 +1,50 @@
-__pycache__/
+# Ignore Python bytecode files
 *.pyc
-.DS_Store
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+
+# Ignore virtual environment directories
 venv/
-*.h5
+env/
+__pycache__/
+
+# Ignore Docker related files
+Dockerfile*
+*.dockerignore
+
+# Ignore logs
+*.log
+
+# Ignore cache and temporary files
+*.bak
+*.swp
+*.swo
+*~
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore datasets (if you use Git LFS for images)
 dataset/
 
+# Ignore dependencies installed by pip
+*.egg-info/
+dist/
+build/
+*.whl
+*.tar.gz
+
+# Ignore the secrets file containing sensitive information (such as API keys or passwords)
+secrets.json
+
+# Ignore Git LFS tracking files
+.gitattributes
+
+# Ignore any system-specific files (macOS, Linux, Windows)
+.DS_Store
+Thumbs
