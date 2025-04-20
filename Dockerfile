@@ -1,23 +1,21 @@
-# Use Python base image
-FROM python:3.10
+# Use TensorFlow base image (already includes Python and TF)
+FROM tensorflow/tensorflow:2.14.0
 
 # Avoid GUI issues with OpenCV
 ENV DEBIAN_FRONTEND=noninteractive
-# Use TensorFlow's official image
-FROM tensorflow/tensorflow:2.14.0
 
-# Set working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy all files into the container
+# Copy files into container
 COPY . .
 
-# Install OpenGL libraries needed for OpenCV
-RUN apt-get update && apt-get install -y libgl1-mesa-glx
+# Install OpenGL libs for OpenCV to work
+RUN apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0 && rm -rf /var/lib/apt/lists/*
 
-# Install Python libraries
+# Upgrade pip and install dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Run the Python script when the container starts
+# Run your script
 CMD ["python", "garbage.py"]
