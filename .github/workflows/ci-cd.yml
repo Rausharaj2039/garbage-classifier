@@ -3,40 +3,36 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Trigger the pipeline on push to the main branch
+      - main
   pull_request:
     branches:
-      - main  # Trigger the pipeline on PRs to the main branch
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use an Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'  # You can change this to the version you're using
+          python-version: '3.8'
 
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      # Step 4: Run tests (you can change this according to your project's testing setup)
       - name: Run tests
         run: |
           python -m unittest discover
 
-      # Step 5: (Optional) Deploy your app
-      # Here you can add deployment steps like Docker, AWS, etc.
-      # For example, if you're deploying using Docker:
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
       - name: Build and Push Docker Image
         run: |
-          docker build -t your-docker-image .
-          docker push your-docker-image
+          docker build -t rausharaj2039/garbage-classifier .
+          docker push rausharaj2039/garbage-classifier
